@@ -39,13 +39,9 @@ export default function CodeMetrics({ isMobile = false }: CodeMetricsProps) {
 
   const renderStats = () => {
     if (!metrics) return null;
-    
+
     return (
       <div className="space-y-2 text-lg">
-        <div className="flex">
-          <span className="text-primary-500 text-glow">{metrics.totalCommits.toLocaleString()}</span>
-          <span className="text-primary-400 text-glow ml-2"> TOTAL COMMITS</span>
-        </div>
         <div className="flex">
           <span className="text-primary-500 text-glow">{metrics.totalRepos}</span>
           <span className="text-primary-400 text-glow ml-2"> REPOSITORIES</span>
@@ -54,7 +50,6 @@ export default function CodeMetrics({ isMobile = false }: CodeMetricsProps) {
           <span className="text-primary-500 text-glow">{metrics.languages.length}</span>
           <span className="text-primary-400 text-glow ml-2"> LANGUAGES</span>
         </div>
-
       </div>
     );
   };

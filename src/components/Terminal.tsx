@@ -7,7 +7,7 @@ interface TerminalProps {
   username: string;
 }
 
-type TabType = "welcome" | "about" | "links";
+type TabType = "welcome" | "links";
 
 export default function Terminal({}: TerminalProps) {
   const [activeTab, setActiveTab] = useState<TabType>("welcome");
@@ -35,25 +35,18 @@ export default function Terminal({}: TerminalProps) {
           <div className="text-sm lg:text-base opacity-80">Select a tab to begin exploring...</div>
         </div>
       </div>
-    </>
-  );
 
-  {/* ABOUT TAB */}
-  const renderAboutContent = () => (
-    <>
-      <div className="text-primary-500 mb-4">
+      <div className="text-primary-500 mt-6 mb-4">
         <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TERM-1] IAN :: TYPE ABOUT.TXT</span>
       </div>
-      
-      <div className="text-primary-400 font-vt323 max-w-[800px]">
-        <div className="text-glow text-lg lg:text-2xl mb-4">IAN SHAPIRO :: DEVELOPER</div>
+      <div className="text-primary-400 font-vt323 max-w-[800px] mx-auto text-center">
         <p className="text-glow text-lg lg:text-2xl leading-relaxed">
-          I'm a Computer Science grad and perpetual student exploring the intersection of AI and security.
-          I've built a zero knowledge app and some niche Python projects for fun and learning.
-          Currently, I'm focusing on AI architectures and security models with a project-based mindset.
-          When I'm not building, you'll find me participating in CTFs or itch.io game jams.
+          CS grad, developer, drummer, and hardware tinkerer from Memphis. I like to code, build FPV drones, 
+          make music, and ship small video games. I work at a security startup that fights malvertising, but 
+          most of the time I'm just building stuff for fun. I love old computers, cybersecurity, and retro 
+          aesthetics. When I'm not at the keyboard I'm probably soldering something or behind a kit.
         </p>
-        <div className="text-glow text-lg lg:text-2xl mt-3">Feel free to explore my links to see what I'm up to!</div>
+        <div className="text-glow text-lg lg:text-2xl mt-3">Feel free to explore my links.</div>
       </div>
     </>
   );
@@ -65,25 +58,25 @@ export default function Terminal({}: TerminalProps) {
         <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TERM-1] IAN :: TYPE LINKS.TXT</span>
       </div>
       
-      <div className="text-primary-400 font-vt323 space-y-2">
+      <div className="text-primary-400 font-vt323 space-y-2 text-center">
         <div className="text-glow text-lg lg:text-2xl">
           <a 
-            href="https://github.com/romii0x" 
+            href="https://github.com/romii" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="inline text-primary-400 hover:text-primary-300 transition-colors duration-200"
           >
-            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">GitHub</span>
+            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">GitHub</span> <span className="text-primary-500">{'<<'}</span>
           </a>
         </div>
         <div className="text-glow text-lg lg:text-2xl">
           <a 
-            href="https://www.linkedin.com/in/ian-shapiro-dev/" 
+            href="https://www.linkedin.com/in/ianshapirodev/" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="inline text-primary-400 hover:text-primary-300 transition-colors duration-200"
           >
-            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">LinkedIn</span>
+            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">LinkedIn</span> <span className="text-primary-500">{'<<'}</span>
           </a>
         </div>
         <div className="text-glow text-lg lg:text-2xl">
@@ -93,7 +86,7 @@ export default function Terminal({}: TerminalProps) {
             rel="noopener noreferrer" 
             className="inline text-primary-400 hover:text-primary-300 transition-colors duration-200"
           >
-            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">Email</span>
+            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">Email</span> <span className="text-primary-500">{'<<'}</span>
           </a>
         </div>
         <div className="text-glow text-lg lg:text-2xl">
@@ -103,7 +96,7 @@ export default function Terminal({}: TerminalProps) {
             rel="noopener noreferrer" 
             className="inline text-primary-400 hover:text-primary-300 transition-colors duration-200"
           >
-            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">itch.io</span>
+            <span className="text-primary-500">{'>>'}</span> <span className="text-glow-hover">itch.io</span> <span className="text-primary-500">{'<<'}</span>
           </a>
         </div>
       </div>
@@ -128,17 +121,6 @@ export default function Terminal({}: TerminalProps) {
             WELCOME
           </button>
           <button
-            onClick={() => setActiveTab("about")}
-            className={`flex-1 px-3 py-1 text-base lg:text-lg transition-colors duration-200 border-r border-primary-500 ${
-              activeTab === "about"
-                ? "text-primary-400 text-glow border-primary-400"
-                : "text-primary-500 hover:text-primary-300 text-glow text-glow-hover"
-            }`}
-            style={activeTab === "about" ? { backgroundColor: 'var(--color-tab-active-bg)' } : {}}
-          >
-            ABOUT
-          </button>
-          <button
             onClick={() => setActiveTab("links")}
             className={`flex-1 px-3 py-1 text-base lg:text-lg transition-colors duration-200 ${
               activeTab === "links"
@@ -155,7 +137,6 @@ export default function Terminal({}: TerminalProps) {
       {/* body */}
       <div className="p-3 h-full overflow-y-auto min-h-0">
         {activeTab === "welcome" && renderWelcomeContent()}
-        {activeTab === "about" && renderAboutContent()}
         {activeTab === "links" && renderLinksContent()}
 
         <div className="mt-4 text-primary-500">

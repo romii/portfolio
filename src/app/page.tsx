@@ -41,8 +41,8 @@ export default function Home() {
           <Terminal 
             username="ian@portfolio"
           />
-          <ActivityChart isMobile={true} />
           <Languages isMobile={true} />
+          <ActivityChart isMobile={true} />
           <LatestCommit isMobile={true} />
         </div>
       </div>
