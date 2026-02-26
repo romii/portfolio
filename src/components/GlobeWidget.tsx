@@ -221,7 +221,7 @@ export default function GlobeWidget() {
       )}
       <div className="absolute top-3 left-3 text-primary-500 text-glow text-2xl">LOCATION</div>
       <div className="absolute bottom-3 left-3 max-w-full">
-        <div className="text-glow text-lg text-primary-400 break-words">TERM-1 {locationData.city.toUpperCase()} {locationData.state} [{currentTime} {locationData.timezone}]</div>
+        <div className="text-glow text-lg text-primary-400 break-words">[TTY-2] {locationData.city.toUpperCase()} {locationData.state}, {currentTime} {locationData.timezone}</div>
       </div>
     </div>
   );

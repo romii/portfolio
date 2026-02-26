@@ -17,17 +17,17 @@ export default function Terminal({}: TerminalProps) {
   const renderWelcomeContent = () => (
     <>
       <div className="text-primary-500 mb-4">
-        <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TERM-1] IAN :: TYPE WELCOME.TXT</span>
+        <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TTY-1] TYPE WELCOME.TXT</span>
       </div>
       
       <div className="text-primary-400 font-vt323 text-center">
         <pre className="text-glow text-[10px] lg:text-base leading-tight">
-{`
-   ____            ______             _        
-  /  _/__ ____    / __/ /  ___ ____  (_)______ 
- _/ // _ \`/ _ \\  _\\ \\/ _ \\/ _ \`/ _ \\/ / __/ _ \\
-/___/\\_,_/_//_/ /___/_//_/\\_,_/ .__/_/_/  \\___/
-                             /_/               
+{`                           
+                          ▄      
+▄▄▄▄   ▄▄▄  ▄▄   ▄▄ ▄▄ ▄▄ ▀ ▄▄▄▄ 
+██▄█▄ ██▀██ ██▀▄▀██ ██ ██  ███▄▄ 
+██ ██ ▀███▀ ██   ██ ██ ██  ▄▄██▀ 
+                                 
 `}
         </pre>
         <div className="mt-6 text-primary-400 text-glow text-lg lg:text-xl">
@@ -37,14 +37,14 @@ export default function Terminal({}: TerminalProps) {
       </div>
 
       <div className="text-primary-500 mt-6 mb-4">
-        <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TERM-1] IAN :: TYPE ABOUT.TXT</span>
+        <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TTY-1] TYPE ABOUT.TXT</span>
       </div>
       <div className="text-primary-400 font-vt323 max-w-[800px] mx-auto text-center">
         <p className="text-glow text-lg lg:text-2xl leading-relaxed">
           CS grad, developer, drummer, and hardware tinkerer from Memphis. I like to code, build FPV drones, 
           make music, and ship small video games. I work at a security startup that fights malvertising, but 
-          most of the time I'm just building stuff for fun. I love old computers, cybersecurity, and retro 
-          aesthetics. When I'm not at the keyboard I'm probably soldering something or behind a kit.
+          most of the time I&apos;m just building stuff for fun. I love old computers, cybersecurity, and retro
+          aesthetics. When I&apos;m not at the keyboard I&apos;m probably soldering something or behind a kit.
         </p>
         <div className="text-glow text-lg lg:text-2xl mt-3">Feel free to explore my links.</div>
       </div>
@@ -55,7 +55,7 @@ export default function Terminal({}: TerminalProps) {
   const renderLinksContent = () => (
     <>
       <div className="text-primary-500 mb-4">
-        <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TERM-1] IAN :: TYPE LINKS.TXT</span>
+        <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TTY-1] TYPE LINKS.TXT</span>
       </div>
       
       <div className="text-primary-400 font-vt323 space-y-2 text-center">
@@ -140,7 +140,7 @@ export default function Terminal({}: TerminalProps) {
         {activeTab === "links" && renderLinksContent()}
 
         <div className="mt-4 text-primary-500">
-          <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TERM-1] IAN :: </span>
+          <span className="text-primary-400 text-glow text-lg lg:text-2xl">[TTY-1] </span>
           <span className="text-primary-400 cursor-blink text-glow text-lg lg:text-2xl">_</span>
         </div>
       </div>

@@ -79,11 +79,48 @@ export async function getGitHubData(username: string): Promise<GitHubData | null
     }
 
     const repos = await reposResponse.json();
+
+    // Latest commit from Events API (includes all branches); repo commits only show default branch
+    let latestCommit: GitHubCommit | null = null;
+    try {
+      const eventsResponse = await fetch(
+        `https://api.github.com/users/${username}/events?per_page=30`,
+        { headers, next: { revalidate: 300 } }
+      );
+      if (eventsResponse.ok) {
+        const events = await eventsResponse.json();
+        const pushEvent = events.find((e: { type: string }) => e.type === 'PushEvent');
+        if (pushEvent?.payload?.commits?.length > 0) {
+          const repoName = pushEvent.repo?.name ?? ''; // "owner/repo"
+          const c = pushEvent.payload.commits[0];
+          const sha = typeof c.sha === 'string' ? c.sha : '';
+          const shortSha = sha.length >= 7 ? sha.substring(0, 7) : sha;
+          latestCommit = {
+            sha: shortSha,
+            commit: {
+              message: (c.message || '').split('\n')[0],
+              author: {
+                name: c.author?.name ?? 'Unknown',
+                email: c.author?.email ?? '',
+                date: pushEvent.created_at ?? new Date().toISOString(),
+              },
+            },
+            html_url: `https://github.com/${repoName}/commit/${sha}`,
+            repository: {
+              name: repoName.split('/').pop() ?? repoName,
+              full_name: repoName,
+              html_url: `https://github.com/${repoName}`,
+            },
+          };
+        }
+      }
+    } catch {
+      // fall back to repo-commits below
+    }
     
     const languageMap = new Map<string, number>();
     let totalCommits = 0;
     const commitsOverTime: { date: string; count: number }[] = [];
-    let latestCommit: GitHubCommit | null = null;
     let latestDate = new Date(0);
     
     // initialize last 30 days
@@ -103,10 +140,13 @@ export async function getGitHubData(username: string): Promise<GitHubData | null
     }
 
     // collect all commits from all repositories
-    const allCommits: Array<{
-      commit: any;
-      repo: any;
-    }> = [];
+    type RawCommit = {
+      sha: string;
+      commit: { message: string; author: { name: string; email: string; date: string } };
+      html_url: string;
+    };
+    type Repo = { name: string; full_name: string; html_url: string };
+    const allCommits: Array<{ commit: RawCommit; repo: Repo }> = [];
 
     // look through repositories
     for (const repo of repos) {
@@ -153,26 +193,30 @@ export async function getGitHubData(username: string): Promise<GitHubData | null
       }
     }
 
-    // process all commits to find the latest
-    for (const { commit, repo } of allCommits) {
-      const commitDate = new Date(commit.commit.author.date);  
-      if (commitDate > latestDate) {
-        latestDate = commitDate;
-        latestCommit = {
-          sha: commit.sha.substring(0, 7),
-          commit: {
-            message: commit.commit.message.split('\n')[0],
-            author: commit.commit.author
-          },
-          html_url: commit.html_url,
-          repository: {
-            name: repo.name,
-            full_name: repo.full_name,
-            html_url: repo.html_url
-          }
-        };
+    // process all commits for activity timeline; use Events-based latestCommit if we have it, else fall back to latest from repo commits
+    if (!latestCommit) {
+      for (const { commit, repo } of allCommits) {
+        const commitDate = new Date(commit.commit.author.date);  
+        if (commitDate > latestDate) {
+          latestDate = commitDate;
+          latestCommit = {
+            sha: commit.sha.substring(0, 7),
+            commit: {
+              message: commit.commit.message.split('\n')[0],
+              author: commit.commit.author
+            },
+            html_url: commit.html_url,
+            repository: {
+              name: repo.name,
+              full_name: repo.full_name,
+              html_url: repo.html_url
+            }
+          };
+        }
       }
-      
+    }
+    for (const { commit } of allCommits) {
+      const commitDate = new Date(commit.commit.author.date);
       // use local date format to match contribution graph
       const year = commitDate.getFullYear();
       const month = String(commitDate.getMonth() + 1).padStart(2, '0');
