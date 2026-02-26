@@ -10,7 +10,7 @@ const font = VT323({
 
 
 export const metadata: Metadata = {
-  title: "Ian Shapiro",
+  title: "romii",
   description: "Portfolio website",
 };
 
