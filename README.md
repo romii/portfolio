@@ -1,5 +1,8 @@
 # Portfolio Site
 
+
+🌐 [romii.dev](https://romii.dev) 
+- Hosted with AWS Amplify
 ## Stack
 
 - **Next.js 15**
