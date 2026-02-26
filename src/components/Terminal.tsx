@@ -32,7 +32,7 @@ export default function Terminal({}: TerminalProps) {
         </pre>
         <div className="mt-6 text-primary-400 text-glow text-lg lg:text-xl">
           <div className="mb-2">:: PORTFOLIO v1.0 ::</div>
-          <div className="text-sm lg:text-base opacity-80">Select a tab to begin exploring...</div>
+          <div className="text-sm lg:text-base opacity-80">Bio, links & GitHub metrics - Ian Shapiro (romii/romii0x)</div>
         </div>
       </div>
 
